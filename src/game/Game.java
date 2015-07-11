@@ -96,7 +96,7 @@ public class Game extends Canvas implements Runnable{
         front.tick(this);
         key.tick(this);
     }
-    
+     //render here
      public void render(){
         BufferStrategy bs = getBufferStrategy();
             if(bs ==  null){
