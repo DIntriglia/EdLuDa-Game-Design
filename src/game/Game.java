@@ -26,8 +26,6 @@ public class Game extends Canvas implements Runnable{
     private JFrame frame; 
     public static String Title;
 
-    public int screenx;
-    public int screeny;
     private Thread thread;
     
     
@@ -108,9 +106,9 @@ public class Game extends Canvas implements Runnable{
            
            back.renderBackground(g);
            front.render(g);
-           
-           g.dispose();
            bs.show();
+           g.dispose();
+           
      }
 
    

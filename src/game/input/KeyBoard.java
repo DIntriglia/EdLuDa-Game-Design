@@ -13,6 +13,7 @@ public class KeyBoard implements KeyListener {
             up = keys[KeyEvent.VK_W];
                       left = keys[KeyEvent.VK_A];
                              right = keys[KeyEvent.VK_D];
+                             //System.out.println(Game.key.up);
         }
 
     public void keyTyped(KeyEvent e) {
@@ -22,12 +23,13 @@ public class KeyBoard implements KeyListener {
 
     public void keyPressed(KeyEvent e) {
       keys[e.getKeyCode()] = true;
-    
+      
     }
 
 
     public void keyReleased(KeyEvent e) {
                keys[e.getKeyCode()] = false;
     }
+
     
 }
