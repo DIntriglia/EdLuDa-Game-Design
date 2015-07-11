@@ -2,10 +2,9 @@
 package game;
 
 import game.input.KeyBoard;
-import game.screens.Background;
 import game.screens.Menu;
-import game.screens.Foreground;
 import java.awt.Canvas;
+import game.screens.Display;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,32 +16,37 @@ import javax.swing.JFrame;
 
 public class Game extends Canvas implements Runnable{
     
+    //Integers
     public static int height = 720;
     public static int width = 1280;
-    private Foreground  front;
-    private Background back;
-
+    public static int topx = 0;
+    public static int topy = 0;
+    public static int botx = 0;
+    public static int boty = 620;
+   
+    //Statements
+    private Display screen2;
+    private Display  screen;
     public static KeyBoard key;
     private JFrame frame; 
     public static String Title;
-
     private Thread thread;
-    
-    
     BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-    public int [] pixels =  ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
+   
+    //booleans
+   private boolean running = false;
+   boolean fps = false;
     
-    private boolean running = false;
     public Game() {
         Dimension size = new Dimension(width,height);
         setPreferredSize(size);
         Menu.create();
         frame = new JFrame();
         running = true;
-        
-        front = new Foreground(300,500);
-        back =  new Background(0,0);
-        
+        // create display
+        screen2 = new Display(botx,boty);
+        screen = new Display(topx,topy);
+        //input
         key = new KeyBoard();
         frame.addKeyListener(key);
 }
@@ -60,7 +64,6 @@ public class Game extends Canvas implements Runnable{
         }
     }
     
-    boolean fps = false;
     public void run() {
          long lastTime = System.nanoTime();
         final double ns = 1000000000.0 / 60.0;
@@ -90,8 +93,10 @@ public class Game extends Canvas implements Runnable{
         stop();
     }
     
+    
     public void tick(){
-        front.tick(this);
+        screen2.tick(this);
+        screen.tick(this);
         key.tick(this);
     }
      //render here
@@ -103,9 +108,10 @@ public class Game extends Canvas implements Runnable{
         }
            Graphics g = bs.getDrawGraphics();
            
-           
-           back.renderBackground(g);
-           front.render(g);
+           screen.renderB(g);
+           screen.renderF(g);
+           screen2.renderF(g);
+                      
            bs.show();
            g.dispose();
            
